@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To My Dearest Senior Apu ✨</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Background floating stars effect -->
+    <div class="stars" id="stars"></div>
+
+    <div class="container">
+        <!-- Main Proposal Card -->
+        <div class="card" id="mainCard">
+            <div class="avatar-container">
+                <!-- Replace 'senior-photo.jpg' with her actual picture filename -->
+                <img src="senior-photo.jpg" alt="Senior Apu" class="avatar">
+            </div>
+            
+            <h1>To My Dearest Senior Apu ✨</h1>
+            <p class="subtitle">An expression straight from the heart...</p>
+
+            <div class="message-box">
+                গোলাপের রূপ দেখে যেমন তার সর্বনাশা কাঁটার কথা ভুলে যাই, তেমনি তোমার মায়াবী মোহ আমাকে জেনেবুঝে এক অবধারিত কষ্টের অতলে টেনে নিয়ে যায়। আমি জেনেশুনেই আমার রক্তমাখা হাত বাড়িয়ে দিচ্ছি, কারণ তোমার ওই তীব্র যন্ত্রণার স্পর্শটুকুও আমার কাছে অমৃতের চেয়েও বেশি কাঙ্ক্ষিত। 🌹
+            </div>
+
+            <div class="question-text">
+                Will you be my forever favorite senior? 🙈💖
+            </div>
+
+            <div class="btn-group" id="btnGroup">
+                <button class="btn btn-yes" onclick="handleYes()">Yes! 💖</button>
+                <button class="btn btn-no" id="noBtn" onmouseover="moveButton()" onclick="moveButton()">No 🙈</button>
+            </div>
+        </div>
+
+        <!-- Success Screen -->
+        <div class="card success-screen" id="successScreen">
+            <div class="avatar-container">
+                <img src="senior-photo.jpg" alt="Senior Apu" class="avatar">
+            </div>
+            <h2>You Made My World! 🥰</h2>
+            <p>Thank you for accepting this little effort. Knowing you makes every single moment magical, and I promise to always cherish your precious smile! 🌹✨</p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

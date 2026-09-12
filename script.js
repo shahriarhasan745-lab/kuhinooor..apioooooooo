@@ -1,30 +1,3 @@
-// Gallery Data mapping exact images with witty English flirting quotes
-const galleryData = [
-    { img: "Screenshot 2026-09-12 103349.png", quote: "Are you a Wi-Fi signal? Because I’m feeling an absolute connection whenever you're near." },
-    { img: "Screenshot 2026-09-12 103408.png", quote: "Is your name Google? Because you have everything I’ve been searching for all this time." },
-    { img: "Screenshot 2026-09-12 103425.png", quote: "Do you have a map? I keep getting completely lost in your effortless grace." },
-    { img: "Screenshot 2026-09-12 103434.png", quote: "They say beauty is in the eye of the beholder, but clearly, they haven't seen your walk yet." },
-    { img: "Screenshot 2026-09-12 103446.png", quote: "Time stops whenever you enter the room, and honestly, I'm not complaining about the delay." },
-    { img: "Screenshot 2026-09-12 103455.png", quote: "Must be illegal to look this stunning without even trying. Do you need a defense attorney?" },
-    { img: "Screenshot 2026-09-12 103508.png", quote: "Are you a rooftop garden? Because my heart blooms every time you're around." },
-    { img: "Screenshot 2026-09-12 103521.png", quote: "Is it sunny outside or did you just step into the room?" },
-    { img: "Screenshot 2026-09-12 103539.png", quote: "Even vintage jeeps look pale next to your timeless aesthetic." }
-];
-
-// Render Gallery
-const galleryGrid = document.getElementById('galleryGrid');
-galleryGrid.innerHTML = galleryData.map((item, idx) => `
-    <article class="gallery-card">
-        <div class="card-img-wrapper">
-            <img src="${item.img}" alt="The Muse Gallery ${idx + 1}" loading="lazy">
-            <div class="card-content">
-                <span style="font-size: 11px; text-transform: uppercase; letter-spacing: 0.15em; color: var(--accent-pink); margin-bottom: 6px;">✦ Signature Whisper</span>
-                <p class="card-quote">"${item.quote}"</p>
-            </div>
-        </div>
-    </article>
-`).join('');
-
 // Page Router
 function switchPage(index) {
     const pages = document.querySelectorAll('.page-container');
@@ -53,28 +26,6 @@ function checkVault(val) {
     }
 }
 
-// Soundscape Controller
-function toggleSound(el, name) {
-    document.querySelectorAll('.sound-card').forEach(card => card.classList.remove('playing'));
-    el.classList.add('playing');
-}
-
-// Vibe Quiz Progressive Handler
-const quizQuestions = [
-    "Where do you look absolute most breathtaking?",
-    "What is our ultimate shared aesthetic?",
-    "Are you ready for the final question?"
-];
-let currentQ = 0;
-function nextQuiz(opt) {
-    currentQ++;
-    if (currentQ < quizQuestions.length) {
-        document.getElementById('quizQ').innerText = quizQuestions[currentQ];
-    } else {
-        switchPage(8); // Go to final proposal
-    }
-}
-
 // Playful 'No' button evasion
 function moveNoButton() {
     const btnNo = document.getElementById('btnNo');
@@ -85,7 +36,6 @@ function moveNoButton() {
 
 // Proposal Celebration & Falling Rose Petals
 function triggerCelebration() {
-    document.getElementById('celebrationModal').style.display = 'flex';
     startConfetti();
 }
 
@@ -113,7 +63,6 @@ for (let i = 0; i < 60; i++) {
 
 function animateParticles() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.fillStyle = "rgba(244, 63, 94, 0.6)";
     
     particles.forEach(p => {
         ctx.beginPath();

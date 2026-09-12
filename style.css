@@ -98,9 +98,29 @@ h1, h2 { font-family: var(--font-serif); font-weight: 500; }
 
 .single-showcase { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
 @media(max-width: 850px) { .single-showcase { grid-template-columns: 1fr; } }
-.showcase-img-box { width: 100%; height: 420px; border-radius: 20px; overflow: hidden; border: 1px solid var(--border-glass); box-shadow: 0 20px 40px rgba(0,0,0,0.6); }
+
+.showcase-img-box { 
+    width: 100%; height: 420px; border-radius: 20px; overflow: hidden; 
+    border: 1px solid var(--border-glass); box-shadow: 0 20px 40px rgba(0,0,0,0.6); 
+    position: relative; background: rgba(18, 18, 26, 0.9);
+}
 .showcase-img-box img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
 .showcase-img-box:hover img { transform: scale(1.03); }
+
+/* Fallback Design if Image is Missing */
+.fallback-card {
+    position: absolute; inset: 0; display: none; flex-direction: column;
+    justify-content: center; align-items: center; text-align: center; padding: 20px;
+    background: linear-gradient(135deg, rgba(244, 63, 94, 0.15), rgba(18, 18, 26, 0.95));
+}
+.fallback-card span { font-size: 50px; margin-bottom: 15px; animation: floatIcon 3s ease-in-out infinite; }
+.fallback-card h2 { font-size: 24px; color: #fff; }
+
+@keyframes floatIcon {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
 .showcase-text h2 { font-size: clamp(28px, 4vw, 42px); margin-bottom: 15px; }
 .showcase-text p { color: var(--text-secondary); font-size: 15px; line-height: 1.8; }
 

@@ -78,7 +78,7 @@ body {
     transform: translateX(-50%);
     z-index: 1000;
     display: flex;
-    gap: 8px;
+    gap: 6px;
     padding: 10px 16px;
     background: rgba(18, 18, 26, 0.85);
     border: 1px solid var(--border-glass);
@@ -96,9 +96,9 @@ body {
     border: none;
     color: var(--text-secondary);
     font-family: var(--font-sans);
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 500;
-    padding: 8px 16px;
+    padding: 8px 14px;
     border-radius: 30px;
     cursor: pointer;
     transition: all 0.4s var(--transition-smooth);
@@ -120,9 +120,9 @@ body {
 .page-container {
     position: relative;
     z-index: 10;
-    max-width: 1400px;
+    max-width: 1300px;
     margin: 0 auto;
-    padding: 60px 30px 120px;
+    padding: 60px 30px 140px;
     min-height: 100vh;
     display: none;
     opacity: 0;
@@ -131,7 +131,9 @@ body {
 }
 
 .page-container.active {
-    display: block;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     opacity: 1;
     transform: translateY(0);
 }
@@ -163,10 +165,10 @@ h1, h2 {
     justify-content: center;
     align-items: center;
     text-align: center;
-    height: 85vh;
+    height: 75vh;
 }
 .hero-page h1 {
-    font-size: clamp(42px, 7vw, 84px);
+    font-size: clamp(48px, 8vw, 88px);
     background: linear-gradient(135deg, #fff 30%, #94a3b8 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -200,163 +202,68 @@ h1, h2 {
     box-shadow: 0 15px 40px rgba(244, 63, 94, 0.6);
 }
 
-/* PAGE 2: The Muse Gallery */
-.gallery-grid {
+/* Single Showcase Layout */
+.single-showcase {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-    gap: 32px;
-    margin-top: 40px;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+    align-items: center;
+    margin-top: 20px;
+}
+@media(max-width: 900px) { .single-showcase { grid-template-columns: 1fr; } }
+.showcase-img-box {
+    width: 100%;
+    height: 480px;
+    border-radius: 24px;
+    overflow: hidden;
+    border: 1px solid var(--border-glass);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+}
+.showcase-img-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.showcase-text h2 {
+    font-size: clamp(32px, 4vw, 48px);
+    margin-bottom: 20px;
+}
+.showcase-text p {
+    color: var(--text-secondary);
+    font-size: 16px;
+    line-height: 1.8;
+}
+
+/* Grid Layouts for Galleries */
+.grid-2col {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 30px;
+    margin-top: 20px;
 }
 .gallery-card {
     background: var(--surface);
     border: 1px solid var(--border-glass);
     border-radius: 24px;
     overflow: hidden;
+    height: 440px;
     backdrop-filter: blur(20px);
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
-    transition: border-color 0.4s ease, box-shadow 0.4s ease;
-    transform-style: preserve-3d;
-    will-change: transform;
 }
-.gallery-card:hover {
-    border-color: var(--border-hover);
-    box-shadow: 0 30px 60px rgba(0,0,0,0.7), 0 0 30px var(--rose-glow);
-}
-.card-img-wrapper {
-    position: relative;
-    width: 100%;
-    height: 440px;
-    overflow: hidden;
-}
-.card-img-wrapper img {
+.gallery-card img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: center top;
-    transition: transform 0.8s var(--transition-smooth);
+    transition: transform 0.6s var(--transition-smooth);
 }
-.gallery-card:hover .card-img-wrapper img {
-    transform: scale(1.06);
-}
-.card-content {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to top, rgba(5,5,8,0.94) 0%, rgba(5,5,8,0.4) 50%, transparent 100%);
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    padding: 28px;
-}
-.card-quote {
-    font-family: var(--font-serif);
-    font-style: italic;
-    font-size: 17px;
-    line-height: 1.5;
-    color: #f1f5f9;
+.gallery-card:hover img {
+    transform: scale(1.05);
 }
 
-/* PAGE 3: Interactive Memory Lanes */
-.timeline-container {
-    position: relative;
-    max-width: 900px;
-    margin: 50px auto;
-    padding-left: 30px;
-    border-left: 1px solid rgba(255, 255, 255, 0.1);
-}
-.timeline-item {
-    position: relative;
-    margin-bottom: 50px;
-    background: var(--surface);
-    border: 1px solid var(--border-glass);
-    padding: 30px;
-    border-radius: 20px;
-    backdrop-filter: blur(20px);
-}
-.timeline-item::before {
-    content: '';
-    position: absolute;
-    left: -36px;
-    top: 30px;
-    width: 12px;
-    height: 12px;
-    background: var(--accent-pink);
-    border-radius: 50%;
-    box-shadow: 0 0 10px var(--accent-pink);
-}
-.timeline-item h3 {
-    font-size: 20px;
-    margin-bottom: 10px;
-    color: #fff;
-}
-.timeline-item p {
-    color: var(--text-secondary);
-    font-size: 15px;
-    line-height: 1.6;
-}
-
-/* PAGE 4: Narrative Chapters */
-.narrative-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 30px;
-    margin-top: 40px;
-}
-.narrative-card {
-    background: var(--surface);
-    border: 1px solid var(--border-glass);
-    padding: 36px 30px;
-    border-radius: 24px;
-    backdrop-filter: blur(20px);
-    transition: all 0.4s ease;
-}
-.narrative-card:hover {
-    transform: translateY(-5px);
-    border-color: rgba(244, 63, 94, 0.3);
-}
-.narrative-card h3 {
-    font-family: var(--font-serif);
-    font-size: 22px;
-    margin-bottom: 14px;
-    color: #fff;
-}
-.narrative-card p {
-    color: var(--text-secondary);
-    font-size: 14px;
-    line-height: 1.7;
-}
-
-/* PAGE 5: Personalized Appreciation */
-.appreciation-hero {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 50px;
-    align-items: center;
-    margin-top: 40px;
-}
-@media(max-width: 900px) { .appreciation-hero { grid-template-columns: 1fr; } }
-.appreciation-img {
-    width: 100%;
-    height: 500px;
-    border-radius: 24px;
-    object-fit: cover;
-    border: 1px solid var(--border-glass);
-    box-shadow: 0 20px 40px rgba(0,0,0,0.6);
-}
-.appreciation-text h2 {
-    font-size: clamp(32px, 4vw, 48px);
-    margin-bottom: 20px;
-}
-.appreciation-text p {
-    color: var(--text-secondary);
-    font-size: 16px;
-    line-height: 1.8;
-    margin-bottom: 16px;
-}
-
-/* PAGE 6: Secret Locked Love Notes */
+/* Vault Container */
 .vault-container {
     max-width: 600px;
-    margin: 80px auto;
+    margin: 40px auto;
     text-align: center;
     background: var(--surface);
     border: 1px solid var(--border-glass);
@@ -392,61 +299,14 @@ h1, h2 {
     color: #fce7f3;
 }
 
-/* PAGE 7: Ambient Soundscape */
-.soundscape-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 24px;
-    margin-top: 40px;
-}
-.sound-card {
-    background: var(--surface);
-    border: 1px solid var(--border-glass);
-    padding: 30px;
-    border-radius: 20px;
-    text-align: center;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-.sound-card.playing {
-    border-color: var(--accent-pink);
-    background: rgba(244, 63, 94, 0.08);
-    box-shadow: 0 0 30px var(--rose-glow);
-}
-.sound-card h3 { font-size: 18px; margin-bottom: 10px; }
-.sound-card p { font-size: 13px; color: var(--text-secondary); }
-
-/* PAGE 8: Interactive Vibe Test */
-.quiz-container {
-    max-width: 700px;
-    margin: 40px auto;
-    background: var(--surface);
-    border: 1px solid var(--border-glass);
-    padding: 40px;
-    border-radius: 24px;
-    backdrop-filter: blur(20px);
-}
-.quiz-question { font-size: 20px; margin-bottom: 24px; font-family: var(--font-serif); }
-.quiz-options { display: flex; flex-direction: column; gap: 14px; }
-.quiz-option {
-    padding: 16px 20px;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid var(--border-glass);
-    border-radius: 12px;
-    cursor: pointer;
-    transition: all 0.3s;
-    font-size: 15px;
-}
-.quiz-option:hover { background: rgba(255, 255, 255, 0.08); border-color: var(--accent-pink); }
-
-/* PAGE 9: Final Proposal Climax */
+/* Proposal Climax Styles */
 .proposal-hero {
     text-align: center;
     max-width: 800px;
-    margin: 60px auto;
+    margin: 40px auto;
 }
 .proposal-hero h1 {
-    font-size: clamp(40px, 6vw, 72px);
+    font-size: clamp(38px, 6vw, 68px);
     margin-bottom: 24px;
     background: linear-gradient(135deg, #fff 20%, #f43f5e 100%);
     -webkit-background-clip: text;
@@ -489,31 +349,3 @@ h1, h2 {
     position: absolute;
     transition: all 0.2s ease;
 }
-
-/* Celebration Modal */
-.modal-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(5, 5, 8, 0.9);
-    z-index: 2000;
-    display: none;
-    justify-content: center;
-    align-items: center;
-    backdrop-filter: blur(20px);
-}
-.modal-box {
-    background: var(--surface);
-    border: 1px solid rgba(244, 63, 94, 0.4);
-    padding: 50px;
-    border-radius: 30px;
-    text-align: center;
-    max-width: 550px;
-    box-shadow: 0 30px 80px rgba(0,0,0,0.8), 0 0 50px var(--rose-glow);
-    animation: modalPop 0.6s var(--transition-smooth);
-}
-@keyframes modalPop {
-    0% { transform: scale(0.9); opacity: 0; }
-    100% { transform: scale(1); opacity: 1; }
-}
-.modal-box h2 { font-size: 36px; margin-bottom: 16px; color: #fff; }
-.modal-box p { color: var(--text-secondary); font-size: 16px; line-height: 1.6; margin-bottom: 30px; }

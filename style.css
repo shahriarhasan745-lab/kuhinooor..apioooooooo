@@ -1,17 +1,4 @@
-:root {
-    --obsidian: #050508;
-    --surface: rgba(18, 18, 26, 0.75);
-    --border-glass: rgba(255, 255, 255, 0.08);
-    --text-primary: #f8fafc;
-    --text-secondary: #94a3b8;
-    --accent-pink: #f43f5e;
-    --font-sans: 'Plus Jakarta Sans', sans-serif;
-    --font-serif: 'Playfair Display', serif;
-    --transition-smooth: cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-* { margin: 0; padding: 0; box-sizing: border-box; user-select: none; }
-
+/* Body-তে থ্রি-ডি পার্সপেক্টিভ যোগ করা হলো */
 body {
     background-color: var(--obsidian);
     color: var(--text-primary);
@@ -19,119 +6,44 @@ body {
     min-height: 100vh;
     overflow-x: hidden;
     position: relative;
+    perspective: 2000px; /* থ্রি-ডি ফিল আনার জন্য */
 }
 
-/* Glowing Ambient Backgrounds */
-.ambient-glow {
-    position: fixed; width: 700px; height: 700px; border-radius: 50%;
-    background: radial-gradient(circle, rgba(244, 63, 94, 0.18) 0%, transparent 70%);
-    top: -250px; left: -250px; z-index: 0; pointer-events: none; filter: blur(90px);
-    animation: pulseGlow 8s ease-in-out infinite alternate;
+/* Page Container Architecture - Book Page Turn Style */
+.page-container {
+    position: absolute;
+    width: 100%;
+    max-width: 1200px;
+    left: 50%;
+    top: 40px;
+    transform: translateX(-50%) rotateY(-90deg); /* ডিফল্টভাবে পাতা বাঁকানো থাকবে */
+    transform-origin: left center; /* বইয়ের বাইন্ডিংয়ের মতো বাম পাশ থেকে ঘুরবে */
+    transform-style: preserve-3d;
+    z-index: 10;
+    padding: 20px 20px 120px;
+    min-height: 80vh;
+    display: none;
+    opacity: 0;
+    transition: transform 0.8s cubic-bezier(0.645, 0.045, 0.355, 1), opacity 0.5s ease;
 }
 
-.ambient-glow-2 {
-    position: fixed; width: 600px; height: 600px; border-radius: 50%;
-    background: radial-gradient(circle, rgba(225, 29, 72, 0.12) 0%, transparent 70%);
-    bottom: -200px; right: -200px; z-index: 0; pointer-events: none; filter: blur(90px);
-    animation: pulseGlow 10s ease-in-out infinite alternate-reverse;
+/* যখন পাতাটি সামনে আসবে (Active Page) */
+.page-container.active {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    opacity: 1;
+    transform: translateX(-50%) rotateY(0deg); /* সোজা হয়ে ভেসে উঠবে */
+    pointer-events: auto;
+    z-index: 20;
 }
 
-@keyframes pulseGlow {
-    0% { transform: scale(1); opacity: 0.6; }
-    100% { transform: scale(1.2); opacity: 1; }
-}
-
-#luxuryCanvas {
-    position: fixed;
-    inset: 0;
-    z-index: 1;
+/* পাতা উল্টে যাওয়ার সময় পেছনের পেজগুলো কেমন দেখাবে */
+.page-container.previous {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    opacity: 0;
+    transform: translateX(-50%) rotateY(90deg); /* ডান দিকে উল্টে চলে যাবে */
     pointer-events: none;
 }
-
-/* Navigation Dock */
-.nav-dock {
-    position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%);
-    z-index: 1000; display: flex; gap: 4px; padding: 8px 12px;
-    background: rgba(18, 18, 26, 0.85); border: 1px solid var(--border-glass);
-    backdrop-filter: blur(24px); border-radius: 50px;
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 20px rgba(244, 63, 94, 0.2);
-    max-width: 95vw; overflow-x: auto; scrollbar-width: none;
-}
-.nav-dock::-webkit-scrollbar { display: none; }
-
-.nav-btn {
-    background: transparent; border: none; color: var(--text-secondary);
-    font-size: 10px; font-weight: 600; padding: 6px 10px; border-radius: 20px;
-    cursor: pointer; transition: all 0.3s; white-space: nowrap;
-}
-.nav-btn:hover { color: #fff; background: rgba(255, 255, 255, 0.08); }
-.nav-btn.active { color: #fff; background: linear-gradient(135deg, var(--accent-pink), #be123c); box-shadow: 0 4px 15px rgba(244, 63, 94, 0.5); }
-
-/* Page Container Architecture */
-.page-container {
-    position: relative; z-index: 10; max-width: 1200px; margin: 0 auto;
-    padding: 40px 20px 120px; min-height: 100vh; display: none;
-    opacity: 0; transform: translateY(20px);
-    transition: opacity 0.6s var(--transition-smooth), transform 0.6s var(--transition-smooth);
-}
-.page-container.active { display: flex; flex-direction: column; justify-content: center; opacity: 1; transform: translateY(0); }
-
-.section-tag {
-    display: inline-block; font-size: 10px; text-transform: uppercase;
-    letter-spacing: 0.25em; color: var(--accent-pink); margin-bottom: 12px;
-    padding: 6px 16px; background: rgba(244, 63, 94, 0.08);
-    border: 1px solid rgba(244, 63, 94, 0.25); border-radius: 50px;
-}
-
-h1, h2 { font-family: var(--font-serif); font-weight: 500; }
-
-.hero-page { display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; height: 75vh; }
-.hero-page h1 { font-size: clamp(45px, 7vw, 80px); margin-bottom: 20px; background: linear-gradient(135deg, #fff 30%, #f43f5e 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-.hero-page p { font-size: clamp(15px, 1.8vw, 18px); color: var(--text-secondary); max-width: 600px; line-height: 1.7; margin-bottom: 30px; font-weight: 300; }
-
-.cta-button {
-    padding: 15px 36px; background: linear-gradient(135deg, var(--accent-pink), #be123c);
-    color: #fff; border: none; border-radius: 50px; font-weight: 600; cursor: pointer;
-    box-shadow: 0 10px 30px rgba(244, 63, 94, 0.4); transition: transform 0.3s, box-shadow 0.3s;
-}
-.cta-button:hover { transform: translateY(-3px); box-shadow: 0 15px 40px rgba(244, 63, 94, 0.6); }
-
-.single-showcase { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
-@media(max-width: 850px) { .single-showcase { grid-template-columns: 1fr; } }
-
-.showcase-img-box { 
-    width: 100%; height: 420px; border-radius: 20px; overflow: hidden; 
-    border: 1px solid var(--border-glass); box-shadow: 0 20px 40px rgba(0,0,0,0.6); 
-    position: relative; background: rgba(18, 18, 26, 0.9);
-}
-.showcase-img-box img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
-.showcase-img-box:hover img { transform: scale(1.03); }
-
-/* Fallback Design if Image is Missing */
-.fallback-card {
-    position: absolute; inset: 0; display: none; flex-direction: column;
-    justify-content: center; align-items: center; text-align: center; padding: 20px;
-    background: linear-gradient(135deg, rgba(244, 63, 94, 0.15), rgba(18, 18, 26, 0.95));
-}
-.fallback-card span { font-size: 50px; margin-bottom: 15px; animation: floatIcon 3s ease-in-out infinite; }
-.fallback-card h2 { font-size: 24px; color: #fff; }
-
-@keyframes floatIcon {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
-}
-
-.showcase-text h2 { font-size: clamp(28px, 4vw, 42px); margin-bottom: 15px; }
-.showcase-text p { color: var(--text-secondary); font-size: 15px; line-height: 1.8; }
-
-.vault-container { max-width: 550px; margin: 0 auto; text-align: center; background: var(--surface); border: 1px solid var(--border-glass); padding: 40px; border-radius: 24px; backdrop-filter: blur(20px); box-shadow: 0 20px 40px rgba(0,0,0,0.5); }
-.vault-input { width: 100%; padding: 14px; background: rgba(255,255,255,0.03); border: 1px solid var(--border-glass); border-radius: 10px; color: #fff; font-size: 15px; margin: 15px 0; text-align: center; outline: none; transition: border-color 0.3s; }
-.vault-input:focus { border-color: var(--accent-pink); }
-.secret-message { margin-top: 20px; padding: 20px; background: rgba(244, 63, 94, 0.05); border: 1px solid rgba(244, 63, 94, 0.2); border-radius: 12px; font-family: var(--font-serif); font-style: italic; font-size: 16px; color: #fce7f3; line-height: 1.6; }
-
-.proposal-hero { text-align: center; max-width: 750px; margin: 0 auto; }
-.proposal-hero h1 { font-size: clamp(34px, 5vw, 60px); margin-bottom: 20px; background: linear-gradient(135deg, #fff 20%, #f43f5e 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-.proposal-hero p { font-size: 17px; color: var(--text-secondary); line-height: 1.7; margin-bottom: 35px; }
-.proposal-actions { display: flex; justify-content: center; gap: 20px; position: relative; min-height: 70px; }
-.btn-yes { padding: 16px 40px; background: linear-gradient(135deg, #f43f5e, #be123c); color: #fff; border: none; border-radius: 50px; font-weight: 600; cursor: pointer; box-shadow: 0 10px 30px rgba(244, 63, 94, 0.4); }
-.btn-no { padding: 16px 40px; background: rgba(255,255,255,0.05); color: var(--text-secondary); border: 1px solid var(--border-glass); border-radius: 50px; font-weight: 600; cursor: pointer; position: absolute; transition: all 0.2s ease; }

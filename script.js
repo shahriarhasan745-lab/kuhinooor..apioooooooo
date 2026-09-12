@@ -1,4 +1,3 @@
-// Generate background stars dynamically
 const starsContainer = document.getElementById('stars');
 for (let i = 0; i < 45; i++) {
     const star = document.createElement('div');
@@ -12,7 +11,6 @@ for (let i = 0; i < 45; i++) {
     starsContainer.appendChild(star);
 }
 
-// Playful 'No' button escape trick
 function moveButton() {
     const noBtn = document.getElementById('noBtn');
     const x = (Math.random() - 0.5) * 180;
@@ -20,7 +18,6 @@ function moveButton() {
     noBtn.style.transform = `translate(${x}px, ${y}px)`;
 }
 
-// Handle 'Yes' click event
 function handleYes() {
     document.getElementById('mainCard').style.display = 'none';
     document.getElementById('successScreen').style.display = 'block';
